@@ -2,6 +2,9 @@ import torch
 import torch.nn as nn
 from torch.autograd import Variable
 from torch.nn.functional import normalize
+from tqdm import tqdm as tqdm 
+import math
+import random
 
 from PGD import PGD
 from robustbench import load_model
@@ -9,9 +12,6 @@ from robustbench.data import load_cifar100, load_cifar10, load_imagenet
 from utils.losses import CE,CW,DLR,Alternate,Linear
 from utils.lr_schedules import A3_Schedule,GAMA_Schedule,MD_Schedule,AA_Schedule
 
-from tqdm import tqdm as tqdm 
-import math
-import random
 
 def validation_check(xadv: torch.Tensor, xcl: torch.Tensor, epsilon: float) -> int:
   '''
@@ -39,13 +39,12 @@ def eval_PGD(model_name: str,
 
   T, R, eps, alpha, lr_schedule = iterations, restarts, epsilon, alpha, lr_schedule
   loss_fn, kwargs = loss_config['loss_fn'], loss_config['kwargs']
-
   device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
   # prepare cifar10 test data batches
-  batch_size = 50 
   CIFAR_PATH="../Datasets"
   IMAGENET_PATH="../Datasets"
+  batch_size = 50 
   
   if dataset == 'CIFAR10':
     x_test, y_test = load_cifar10(n_examples=10000,data_dir=CIFAR_PATH)
