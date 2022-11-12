@@ -8,15 +8,8 @@ import numpy as np
 
 INF = float('INF')
 
-def PGD(model,x,y,
-    T,restarts,
-    alpha,epsilon,
-    loss_fn,
-    init='id',
-    step_schedule=None,
-    return_last=False,
-    **kwargs
-    ):
+def PGD(model, x, y, T, restarts, alpha, epsilon, loss_fn,
+    init='id', step_schedule=None, return_last=False, **kwargs):
   #Only l-inf. Implemented according to https://github.com/ermongroup/ODS/blob/master/whitebox_pgd_attack_cifar10_ODI.py
   
   device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')

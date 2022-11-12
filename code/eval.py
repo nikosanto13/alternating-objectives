@@ -27,15 +27,8 @@ def validation_check(xadv: torch.Tensor, xcl: torch.Tensor, epsilon: float) -> i
   
   return valid 
 
-def eval_PGD(model_name: str,
-       batch_size: int,
-       iterations: int,
-       restarts: int,
-       epsilon: float, 
-       alpha: float,
-       lr_schedule,
-       loss_config,
-       dataset):
+def eval_PGD(model_name: str, batch_size: int, iterations: int, restarts: int,
+       epsilon: float, alpha: float, lr_schedule, loss_config, dataset: str):
 
   T, R, eps, alpha, lr_schedule = iterations, restarts, epsilon, alpha, lr_schedule
   loss_fn, kwargs = loss_config['loss_fn'], loss_config['kwargs']
