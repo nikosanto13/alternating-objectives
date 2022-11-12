@@ -3,3 +3,4 @@ robustness==1.2.1.post2
 torch==1.9.1
 tqdm==4.58.0
 git+https://github.com/RobustBench/robustbench.git
+matplotlib==3.4.3

@@ -15,14 +15,13 @@ pip install -r requirements.txt
 mkdir Datasets # create a directory to save the datasets 
 ```
 
-+ Experiments can be run in three datasets: CIFAR-10, CIFAR-100 and ImageNet. Datasets are loaded inside the code/eval.py script. By default, RobustBench downloads CIFAR-10 and CIFAR-100 if the datasets do not exist in the prespecified path. However, the ImageNet val set has to be downloaded manually and then post-processed to have the expected directory structure. In order to fix this, follow the instructions from the relevant section at the [RobustBench repository](https://github.com/RobustBench/robustbench). 
-
++ Experiments can be run in three datasets: CIFAR-10, CIFAR-100 and ImageNet. Datasets are loaded inside the code/eval.py script. By default, RobustBench downloads CIFAR-10 and CIFAR-100 if the datasets do not exist in the prespecified path. However, the ImageNet val set has to be downloaded manually and then post-processed to have the expected directory structure. In order to fix this, follow the instructions from the relevant section at the [RobustBench repository](https://github.com/RobustBench/robustbench). </br>
 **Important**: The datasets will be loaded to the Datasets directory. If you already possess the ImageNet val directory, just create a soft link to the Datasets dir:
 ```bash
 ln -s path/to/imagenet_val ./Datasets/val 
 ```
 
-Then, move to the *code* repository and execute the preparation script, which downloads all the robust models of our study from the RobustBench ModelZoo
+Then, move to the *code* repository and execute the preparation script, which downloads all the robust models of our study from the RobustBench ModelZoo.
 ```bash
 cd code
 python3 prep_models_datasets.py
