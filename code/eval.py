@@ -44,8 +44,8 @@ def eval_PGD(model_name: str,
 
   # prepare cifar10 test data batches
   batch_size = 50 
-  CIFAR_PATH="~/Datasets"
-  IMAGENET_PATH="~/Datasets"
+  CIFAR_PATH="../Datasets"
+  IMAGENET_PATH="../Datasets"
   
   if dataset == 'CIFAR10':
     x_test, y_test = load_cifar10(n_examples=10000,data_dir=CIFAR_PATH)
