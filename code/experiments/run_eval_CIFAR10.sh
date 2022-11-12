@@ -1,4 +1,5 @@
 cd ../
+id=0
 
 for MODEL in Engstrom2019Robustness Carmon2019Unlabeled Hendrycks2019Using Zhang2019You Zhang2019Theoretically\
    Wu2020Adversarial Sehwag2021Proxy_R18 Andriushchenko2020Understanding Dai2021Parameterizing\

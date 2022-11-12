@@ -1,4 +1,5 @@
 cd ../
+id=0
 
 for MODEL in Salman2020Do_R18 Salman2020Do_R50 Engstrom2019Robustness Wong2020Fast
 do
