@@ -1,6 +1,6 @@
 ## Alternating Objectives Generates Stronger PGD-Based Adversarial Attacks
 
-This is the implementation of our paper called "Alternating Objectives Generates Stronger PGD-Based Adversarial Attacks" submitted to the [SaTML 2023 Conference](https://satml.org/#). 
+This is the implementation of our paper called "Alternating Objectives Generates Stronger PGD-Based Adversarial Attacks". 
 
 ---
 
