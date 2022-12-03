@@ -1,6 +1,8 @@
 cd ../
 
-for MODEL in Rebuffi2021Fixing_28_10_cutmix_ddpm
+DATASET=ImageNet
+
+for MODEL in Salman2020Do_50_2
 do
     echo Waiting for free GPU ... ${MODEL}
     id=0
@@ -10,12 +12,19 @@ do
         free_mem=$(nvidia-smi --query-gpu=memory.free --format=csv -i $id | grep -Eo [0-9]+)
         sleep 2
     done
-    CUDA_VISIBLE_DEVICES=$id python3 run_eval.py --model_name ${MODEL} --loss CE --alpha_eps_ratio 0.25 --step_schedule None --restarts 1 --dataset CIFAR100
-    CUDA_VISIBLE_DEVICES=$id python3 run_eval.py --model_name ${MODEL} --loss CW --alpha_eps_ratio 0.25 --step_schedule None --restarts 1 --dataset CIFAR100
-    CUDA_VISIBLE_DEVICES=$id python3 run_eval.py --model_name ${MODEL} --loss DLR --alpha_eps_ratio 0.25 --step_schedule None --restarts 1 --dataset CIFAR100
-    CUDA_VISIBLE_DEVICES=$id python3 run_eval.py --model_name ${MODEL} --loss CECW --alpha_eps_ratio 0.25 --step_schedule None --restarts 1 --dataset CIFAR100
-    CUDA_VISIBLE_DEVICES=$id python3 run_eval.py --model_name ${MODEL} --loss CEDLR --alpha_eps_ratio 0.25 --step_schedule None --restarts 1 --dataset CIFAR100
-    CUDA_VISIBLE_DEVICES=$id python3 run_eval.py --model_name ${MODEL} --loss CWDLR --alpha_eps_ratio 0.25 --step_schedule None --restarts 1 --dataset CIFAR100
-    CUDA_VISIBLE_DEVICES=$id python3 run_eval.py --model_name ${MODEL} --loss CECWDLR --alpha_eps_ratio 0.25 --step_schedule None --restarts 1 --dataset CIFAR100
+    CUDA_VISIBLE_DEVICES=$id python3 run_eval.py --model_name ${MODEL} --loss CE --alpha_eps_ratio 0.25 \
+        --step_schedule None --restarts 1 --dataset ${DATASET} -o ../../src/results -mf ../../robust_models -df /home/nikosanto/Datasets
+    CUDA_VISIBLE_DEVICES=$id python3 run_eval.py --model_name ${MODEL} --loss CW --alpha_eps_ratio 0.25 \
+        --step_schedule None --restarts 1 --dataset ${DATASET} -o ../../src/results -mf ../../robust_models -df /home/nikosanto/Datasets
+    CUDA_VISIBLE_DEVICES=$id python3 run_eval.py --model_name ${MODEL} --loss DLR --alpha_eps_ratio 0.25 \
+        --step_schedule None --restarts 1 --dataset ${DATASET} -o ../../src/results -mf ../../robust_models -df /home/nikosanto/Datasets
+    CUDA_VISIBLE_DEVICES=$id python3 run_eval.py --model_name ${MODEL} --loss CECW --alpha_eps_ratio 0.25 \
+        --step_schedule None --restarts 1 --dataset ${DATASET} -o ../../src/results -mf ../../robust_models -df /home/nikosanto/Datasets
+    CUDA_VISIBLE_DEVICES=$id python3 run_eval.py --model_name ${MODEL} --loss CEDLR --alpha_eps_ratio 0.25 \
+        --step_schedule None --restarts 1 --dataset ${DATASET} -o ../../src/results -mf ../../robust_models -df /home/nikosanto/Datasets
+    CUDA_VISIBLE_DEVICES=$id python3 run_eval.py --model_name ${MODEL} --loss CWDLR --alpha_eps_ratio 0.25 \
+        --step_schedule None --restarts 1 --dataset ${DATASET} -o ../../src/results -mf ../../robust_models -df /home/nikosanto/Datasets
+    CUDA_VISIBLE_DEVICES=$id python3 run_eval.py --model_name ${MODEL} --loss CECWDLR --alpha_eps_ratio 0.25 \
+        --step_schedule None --restarts 1 --dataset ${DATASET} -o ../../src/results -mf ../../robust_models -df /home/nikosanto/Datasets
     echo ${MODEL} Done
 done 
