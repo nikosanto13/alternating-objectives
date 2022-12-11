@@ -3,7 +3,6 @@ import torch.nn as nn
 from tqdm import tqdm as tqdm
 
 from PGD import PGD
-from robustbench import load_model
 from robustbench.data import load_cifar100, load_cifar10, load_imagenet
 from utils.utils import validation_check
 from typing import Tuple
@@ -30,7 +29,6 @@ def eval_PGD(classifier: nn.Module,
     loss_fn, kwargs = loss_config['loss_fn'], loss_config['kwargs']
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-    # prepare cifar10 test data batches
     batch_size = 25 if dataset == "ImageNet" else 50
 
     if dataset == 'CIFAR10':

@@ -2,19 +2,19 @@ import torch
 import torch.nn as nn
 
 
-def CE(x, y, **kwargs):
+def ce_loss(x, y, **kwargs):
     # kwargs are not needed here, just for implementation convenience
     return nn.CrossEntropyLoss(reduction='none')(x, y)
 
 
-def CW(x, y, **kwargs):
+def cw_loss(x, y, **kwargs):
     # kwargs are not needed here, just for implementation convenience
     px = x
     px_sorted, ind_sorted = px.sort(dim=1)
     ind = (ind_sorted[:, -1] == y).float()
-    ui = torch.arange(px.shape[0])
+    idx = torch.arange(px.shape[0])
 
-    return -(px[ui, y] - px_sorted[:, -2] * ind - px_sorted[:, -1] * (1. - ind))
+    return -(px[idx, y] - px_sorted[:, -2] * ind - px_sorted[:, -1] * (1. - ind))
 
 
 def MSE(x, y, **kwargs):
@@ -26,17 +26,17 @@ def MSE(x, y, **kwargs):
     return torch.norm(p0-p, p=2, dim=1)
 
 
-def DLR(x, y, **kwargs):
+def dlr_loss(x, y, **kwargs):
     # kwargs are not needed here, just for implementation convenience
     x_sorted, ind_sorted = x.sort(dim=1)
     ind = (ind_sorted[:, -1] == y).float()
-    u = torch.arange(x.shape[0])
+    idx = torch.arange(x.shape[0])
 
-    return -(x[u, y] - x_sorted[:, -2] * ind - x_sorted[:, -1] *
+    return -(x[idx, y] - x_sorted[:, -2] * ind - x_sorted[:, -1] *
              (1. - ind)) / (x_sorted[:, -1] - x_sorted[:, -3] + 1e-12)
 
 
-def Alternate(x, y, **kwargs):
+def alternate_loss(x, y, **kwargs):
     # Alternate losses during PGD
 
     it = kwargs['it']
@@ -51,7 +51,7 @@ def Alternate(x, y, **kwargs):
             return losses[i](x, y, **kwargs)
 
 
-def Linear(x, y, **kwargs):
+def linear_loss(x, y, **kwargs):
     '''
     Linear combination loss
     args (that need to be specified by user):

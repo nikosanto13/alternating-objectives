@@ -10,22 +10,22 @@ def parse_arguments():
     arg_parser = argparse.ArgumentParser()
 
     arg_parser.add_argument("--model_name", type=str, default='Engstrom2019Robustness',
-                            help='defense to attack')
+                            help="The name of robust model to perform robustness evaluation through PGD")
     arg_parser.add_argument("--loss", type=str, default='CE', choices=loss_configs.keys(),
                             help="PGD's Surrogate Loss (Default: Cross Entropy)")
     arg_parser.add_argument("--step_schedule", type=str, default='None', choices=step_configs.keys(),
-                            help='Step Size Schedule (Default: Fixed Step Size)')
+                            help='Step Size Schedule (Default: fixed step size)')
     arg_parser.add_argument("-bs", "--batch_size", type=int, default=50,
-                            help='Eval Batch Size (Currently hardcoded to 50)')
+                            help='Evaluation batch size (currently hardcoded to 50)')
     arg_parser.add_argument("-a", "--alpha_eps_ratio", type=float, default=0.25,
                             help='step size-perturbation bound ratio')
     arg_parser.add_argument("-T", "--iterations", type=int, default=100,
-                            help='num of iterations')
+                            help='num of PGD iterations')
     arg_parser.add_argument("-r", "--restarts", type=int, default=1,
-                            help='num of restarts')
+                            help='num of PGD restarts')
     arg_parser.add_argument("-d", "--dataset", type=str, default='CIFAR10',
-                            choices=['CIFAR10', 'CIFAR100', "ImageNet"],
-                            help='dataset to run attack')
+                            choices=['CIFAR10', 'CIFAR100', 'ImageNet'],
+                            help="dataset to run attack")
     arg_parser.add_argument("-o", "--output_folder", type=str, default="results",
                             help="The output folder to write the results of PGD's evaluation")
     arg_parser.add_argument("-mf", "--models_folder", type=str, default="models",
@@ -65,7 +65,7 @@ if __name__ == '__main__':
     model_name = args['model_name']
     epsilon = 0.031 if model_name != 'Zhang2019Theoretically' else 8/255
     dataset = args['dataset']
-    epsilon = 4/255 if dataset == "Imagenet" else epsilon
+    epsilon = 4/255 if dataset == "ImageNet" else epsilon
 
     batch_size, iterations, alpha, restarts = args['batch_size'], args[
         'iterations'], args['alpha_eps_ratio']*epsilon, args['restarts']

@@ -2,7 +2,6 @@
 
 import tqdm
 from robustbench import load_model
-import os  
 import sys
 
 if __name__ == "__main__":
@@ -41,7 +40,11 @@ if __name__ == "__main__":
         'Addepalli2021Towards_PARN18',
         'Rice2020Overfitting',
         'Hendrycks2019Using',
-        'Rebuffi2021Fixing_28_10_cutmix_ddpm'
+        'Rebuffi2021Fixing_28_10_cutmix_ddpm',
+        'Addepalli2022Efficient_WRN_34_10',
+        'Sehwag2021Proxy',
+        'Pang2022Robustness_WRN28_10',
+        'Jia2022LAS-AT_34_10'
     ]
 
     for model in tqdm.tqdm(models):
@@ -51,11 +54,13 @@ if __name__ == "__main__":
             print(f"skip: {model}")
 
     models = [
-        "Salman2020Do_R18",
-        "Salman2020Do_R50",
-        "Engstrom2019Robustness",
-        "Wong2020Fast",
-        "Salman2020Do_50_2"
+        'Salman2020Do_R18',
+        'Salman2020Do_R50',
+        'Engstrom2019Robustness',
+        'Wong2020Fast',
+        'Salman2020Do_50_2',
+        'Debenedetti2022Light_XCiT-S12',
+        'Debenedetti2022Light_XCiT-M12'
     ]
 
     for model in tqdm.tqdm(models):
