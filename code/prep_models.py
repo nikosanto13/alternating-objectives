@@ -59,8 +59,7 @@ if __name__ == "__main__":
         'Engstrom2019Robustness',
         'Wong2020Fast',
         'Salman2020Do_50_2',
-        'Debenedetti2022Light_XCiT-S12',
-        'Debenedetti2022Light_XCiT-M12'
+        'Debenedetti2022Light_XCiT-S12'
     ]
 
     for model in tqdm.tqdm(models):
