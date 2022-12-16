@@ -1,2 +1,4 @@
 *.json
-experiments/run_eval_single.sh
+code/experiments/run_eval_single.sh
+code/__pycache__
+code/utils/__pycache__
