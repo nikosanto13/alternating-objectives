@@ -1,11 +1,10 @@
-import torch
-import torch.nn as nn 
-from tqdm import tqdm as tqdm
-
-from PGD import PGD
-from robustbench.data import load_cifar100, load_cifar10, load_imagenet
-from utils.utils import validation_check
 from typing import Tuple
+from robustbench.data import load_cifar100, load_cifar10, load_imagenet
+import torch
+import torch.nn as nn
+from tqdm import tqdm as tqdm
+from utils.utils import validation_check
+from PGD import projected_gradient_descent
 
 
 def eval_PGD(classifier: nn.Module,
@@ -32,11 +31,14 @@ def eval_PGD(classifier: nn.Module,
     batch_size = 25 if dataset == "ImageNet" else 50
 
     if dataset == 'CIFAR10':
-        x_test, y_test = load_cifar10(n_examples=10000, data_dir=path_to_dataset)
+        x_test, y_test = load_cifar10(
+            n_examples=10000, data_dir=path_to_dataset)
     elif dataset == 'CIFAR100':
-        x_test, y_test = load_cifar100(n_examples=10000, data_dir=path_to_dataset)
+        x_test, y_test = load_cifar100(
+            n_examples=10000, data_dir=path_to_dataset)
     elif dataset == "ImageNet":
-        x_test, y_test = load_imagenet(n_examples=5000, data_dir=path_to_dataset)
+        x_test, y_test = load_imagenet(
+            n_examples=5000, data_dir=path_to_dataset)
 
     num_of_batches = int(len(x_test)/batch_size)
     classifier.to(device)
@@ -44,7 +46,7 @@ def eval_PGD(classifier: nn.Module,
     correct, num_samples = 0, 0
     valids = 0
 
-    for i in tqdm(range(num_of_batches), desc= "PGD Evaluation..."):
+    for i in tqdm(range(num_of_batches), desc="PGD Evaluation..."):
         x, y = x_test[i*batch_size:(i+1)*batch_size], y_test[i *
                                                              batch_size:(i+1)*batch_size]
 

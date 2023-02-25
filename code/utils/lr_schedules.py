@@ -11,7 +11,8 @@ def a3_schedule(alpha, **kwargs):
 def gama_schedule(alpha, **kwargs):
     """ Guided Adversarial step schedule  : https://arxiv.org/pdf/2011.14969.pdf """
     t, total_its, epsilon = kwargs['it'], kwargs['T'], kwargs['epsilon']
-    t1, t2 = int(0.6*total_its), int(0.85*total_its)  # for T=100, (t1,t2) = (60,85)
+    # for T=100, (t1,t2) = (60,85)
+    t1, t2 = int(0.6*total_its), int(0.85*total_its)
 
     if t < t1:
         return alpha
