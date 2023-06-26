@@ -2,12 +2,12 @@ from typing import Tuple
 from robustbench.data import load_cifar100, load_cifar10, load_imagenet
 import torch
 import torch.nn as nn
-from tqdm import tqdm as tqdm
+from tqdm import tqdm
 from utils.utils import validation_check
 from PGD import projected_gradient_descent
 
 
-def eval_PGD(classifier: nn.Module,
+def eval_pgd(classifier: nn.Module,
              batch_size: int,
              iterations: int,
              restarts: int,
@@ -17,14 +17,13 @@ def eval_PGD(classifier: nn.Module,
              loss_config,
              dataset: str,
              path_to_dataset: str) -> Tuple[float, float]:
-    """
-    This function is responsible for the PGD evaluation given a specific model.
+    """ This function is responsible for the PGD evaluation given a specific model.
     It downloads the dataset, and then performs PGD evaluation for the whole dataset.
     It returns the robust accuracy of the model, as well as the percentage of valid adversaries.
-    The latter is optional, and it is checked in order to assure that we do not violate any constraint. 
+    The latter is optional, and it is checked in order to assure that we do not violate 
+    any constraint. 
     """
 
-    T, R, eps, alpha, lr_schedule = iterations, restarts, epsilon, alpha, lr_schedule
     loss_fn, kwargs = loss_config['loss_fn'], loss_config['kwargs']
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -54,11 +53,11 @@ def eval_PGD(classifier: nn.Module,
         num_samples += x.size(0)
         xcl = x.detach().clone()
 
-        xadv = PGD(classifier, x, y,
-                   T=T, restarts=R, alpha=alpha, epsilon=eps,
+        xadv = projected_gradient_descent(classifier, x, y,
+                   num_iter=iterations, restarts=restarts, alpha=alpha, epsilon=epsilon,
                    loss_fn=loss_fn, step_schedule=lr_schedule, **kwargs)
 
-        valids += validation_check(xadv, xcl, eps)
+        valids += validation_check(xadv, xcl, epsilon)
 
         pred = classifier(xadv).argmax(dim=1)
         correct += (y == pred).sum().item()

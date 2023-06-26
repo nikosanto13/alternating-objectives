@@ -1,8 +1,9 @@
-# a script to download the models to the specified folder
+""" a script to download the models to the specified folder
+"""
 
+import sys
 import tqdm
 from robustbench import load_model
-import sys
 
 if __name__ == "__main__":
     path_to_models = sys.argv[1]
